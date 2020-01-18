@@ -2,12 +2,5 @@
     "name": "drupal_monsters",
     "type": "drupal-module",
     "description": "Drupal Monsters Game",
-    "keywords": [
-    ],
-    "homepage": "https://www.drupal.org/project/drupal_monsters",
-    "minimum-stability": "dev",
-    "support": {
-        "issues": "https://www.drupal.org/project/issues/drupal_monsters",
-        "source": "http://cgit.drupalcode.org/drupal_monsters",
-    },
+    "keywords": []
 }
