@@ -1,0 +1,350 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the drupal_monsters module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Load default data.
+ *
+ * @see hook_install()
+ *
+ * @ingroup drupal_monsters
+ */
+function drupal_monsters_install() {
+  // Load database service.
+  $connection = \Drupal::database();
+
+  // Create elemental types.
+  $types = [
+    // 1.
+    ['name' => 'normal'],
+    // 2.
+    ['name' => 'grass'],
+    // 3.
+    ['name' => 'fire'],
+    // 4.
+    ['name' => 'water'],
+  ];
+
+  foreach ($types as $type) {
+    $connection->insert('drupal_monsters_type')->fields($type)->execute();
+  }
+
+  // Create base monster data.
+  $monsters = [
+    [
+      'name' => 'Normon',
+      'tid' => 1,
+      'attack' => 3,
+      'defense' => 3,
+      'stamina' => 3,
+    ],
+    [
+      'name' => 'Treemon',
+      'tid' => 2,
+      'attack' => 3,
+      'defense' => 2,
+      'stamina' => 4,
+    ],
+    [
+      'name' => 'Charmon',
+      'tid' => 3,
+      'attack' => 5,
+      'defense' => 2,
+      'stamina' => 2,
+    ],
+    [
+      'name' => 'Dropmon',
+      'tid' => 4,
+      'attack' => 2,
+      'defense' => 4,
+      'stamina' => 3,
+    ],
+  ];
+
+  foreach ($monsters as $mon) {
+    $connection->insert('drupal_monsters_mon')->fields($mon)->execute();
+  }
+
+  // Create move/attack data.
+  $moves = [
+    [
+      'name' => 'Tackle',
+      'tid' => 1,
+      'power' => 2,
+      'damage_mult' => 1,
+    ],
+    [
+      'name' => 'Tree slap',
+      'tid' => 2,
+      'power' => 3,
+      'damage_mult' => 1.25,
+    ],
+    [
+      'name' => 'Water pistol',
+      'tid' => 3,
+      'power' => 2,
+      'damage_mult' => 1.33,
+    ],
+    [
+      'name' => 'Spark shot',
+      'tid' => 4,
+      'power' => 3,
+      'damage_mult' => 1.5,
+    ],
+  ];
+
+  foreach ($moves as $move) {
+    $connection->insert('drupal_monsters_move')->fields($move)->execute();
+  }
+
+  // Create elemental vulnerability data.
+  $vulns = [
+    // Grass > Water.
+    [
+      'tid' => 2,
+      'vtid' => 4,
+    ],
+    // Fire > Grass.
+    [
+      'tid' => 3,
+      'vtid' => 2,
+    ],
+    // Water > Fire.
+    [
+      'tid' => 4,
+      'vtid' => 3,
+    ],
+  ];
+
+  foreach ($vulns as $vuln) {
+    $connection->insert('drupal_monsters_vuln')->fields($vuln)->execute();
+  }
+
+}
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ *
+ * @ingroup drupal_monsters
+ */
+function drupal_monsters_schema() {
+  // Base Monster table.
+  $schema['drupal_monsters_mon'] = [
+    'description' => 'Table containing monster data.',
+    'fields' => [
+      'mid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique monster ID.',
+      ],
+      'tid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'unsigned' => TRUE,
+        'description' => "{drupal_monsters_type}.id.",
+      ],
+      'name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The monster\'s name.',
+      ],
+      'attack' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'description' => 'The monster\'s base attack.',
+      ],
+      'defense' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'description' => 'The monster\'s base defense.',
+      ],
+      'stamina' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'description' => 'The monster\'s base stamina.',
+      ],
+    ],
+    'primary key' => ['mid'],
+  ];
+  // Table for users' monsters.
+  $schema['drupal_monsters_user_mon'] = [
+    'description' => 'Data for users\s monsters. Unique entries for each user.',
+    'fields' => [
+      'umid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique user monster ID.',
+      ],
+      'uid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'unsigned' => TRUE,
+        'description' => "{users}.uid.",
+      ],
+      'nickname' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The monster\'s user given name.',
+      ],
+      'attack' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'description' => 'The monster\'s additional attack power.',
+      ],
+      'defense' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'description' => 'The monster\'s additional defense.',
+      ],
+      'stamina' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'description' => 'The monster\'s additional stamina.',
+      ],
+      'level' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'description' => 'The monster\'s current level.',
+      ],
+      'experience' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'description' => 'The monster\'s current experience.',
+      ],
+    ],
+    'primary key' => ['umid'],
+    'indexes' => [
+      'uid' => ['uid'],
+    ],
+  ];
+  // Types data table.
+  $schema['drupal_monsters_type'] = [
+    'description' => 'Monster and move elemental types.',
+    'fields' => [
+      'tid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique type ID.',
+      ],
+      'name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The type name.',
+      ],
+    ],
+    'primary key' => ['tid'],
+  ];
+  // Attacks/Moves data table.
+  $schema['drupal_monsters_move'] = [
+    'description' => 'Monster attack moves.',
+    'fields' => [
+      'mvid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique move ID.',
+      ],
+      'tid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'unsigned' => TRUE,
+        'description' => "{drupal_monsters_type}.id.",
+      ],
+      'name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The move name.',
+      ],
+      'power' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'description' => 'The move\'s base damage.',
+      ],
+      'damage_mult' => [
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 1,
+        'unsigned' => TRUE,
+        'description' => 'Damage multiplier if target has vulnerability.',
+      ],
+    ],
+    'primary key' => ['mvid'],
+  ];
+  // Vulnerability data table.
+  $schema['drupal_monsters_vuln'] = [
+    'description' => 'Elemental strengths and weaknesses.',
+    'fields' => [
+      'vid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique vulnerability ID.',
+      ],
+      'tid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'unsigned' => TRUE,
+        'description' => "{drupal_monsters_type}.id.",
+      ],
+      'vtid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'unsigned' => TRUE,
+        'description' => "The {drupal_monsters_type}.id. affected by the vulnerability.",
+      ],
+    ],
+    'primary key' => ['vid'],
+    'indexes' => [
+      'tid' => ['tid'],
+      'vtid' => ['vtid'],
+    ],
+  ];
+  return $schema;
+}
