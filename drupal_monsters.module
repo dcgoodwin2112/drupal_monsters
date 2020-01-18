@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains drupal_monsters.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function drupal_monsters_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the drupal_monsters module.
+    case 'help.page.drupal_monsters':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Drupal Monsters Game') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function drupal_monsters_theme() {
+  return [
+    'drupal_monsters' => [
+      'render element' => 'children',
+    ],
+  ];
+}
