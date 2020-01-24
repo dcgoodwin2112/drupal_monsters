@@ -151,7 +151,7 @@ function drupal_monsters_schema() {
         'not null' => TRUE,
         'default' => 0,
         'unsigned' => TRUE,
-        'description' => "{drupal_monsters_type}.id.",
+        'description' => "{drupal_monsters_type}.tid.",
       ],
       'name' => [
         'type' => 'varchar',
@@ -195,6 +195,13 @@ function drupal_monsters_schema() {
         'type' => 'serial',
         'not null' => TRUE,
         'description' => 'Primary Key: Unique user monster ID.',
+      ],
+      'mid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'unsigned' => TRUE,
+        'description' => "{drupal_monsters_mon}.mid.",
       ],
       'uid' => [
         'type' => 'int',
@@ -250,6 +257,22 @@ function drupal_monsters_schema() {
         'unsigned' => TRUE,
         'description' => 'The monster\'s current experience.',
       ],
+      'mvid1' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'description' => 'First Attack',
+      ],
+      'mvid2' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'description' => 'Second Attack',
+      ],
     ],
     'primary key' => ['umid'],
     'indexes' => [
@@ -289,7 +312,7 @@ function drupal_monsters_schema() {
         'not null' => TRUE,
         'default' => 0,
         'unsigned' => TRUE,
-        'description' => "{drupal_monsters_type}.id.",
+        'description' => "{drupal_monsters_type}.tid.",
       ],
       'name' => [
         'type' => 'varchar',
@@ -330,7 +353,7 @@ function drupal_monsters_schema() {
         'not null' => TRUE,
         'default' => 0,
         'unsigned' => TRUE,
-        'description' => "{drupal_monsters_type}.id.",
+        'description' => "{drupal_monsters_type}.tid.",
       ],
       'vtid' => [
         'type' => 'int',
