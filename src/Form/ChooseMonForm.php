@@ -167,6 +167,24 @@ class ChooseMonForm extends FormBase {
   }
 
   /**
+   * Get randomized moves for selected mon.
+   *
+   * @param int $type_id
+   *   The type of the selected monster.
+   *
+   * @return object[]
+   *   Array of query data contain monster move ids.
+   */
+  protected function getMonMoves(int $type_id) {
+    $query = $this->database->select('drupal_monsters_move', 'dmm')
+      ->fields('dmm', ['mvid', 'tid'])
+      ->condition('tid', [1, $type_id], 'IN')
+      ->execute();
+    return $query->fetchAll();
+
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
@@ -180,11 +198,18 @@ class ChooseMonForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Display result.
+
+    // Get id of selected mon.
+    $mid = $form_state->getValue('monster');
+    // Get randomized Move Ids.
+    $moves = $this->getMonMoves($this->monsters[$mid]->tid);
+    // Set fields fields for db insert.
     $values = [
-      'mid' => $form_state->getValue('monster'),
+      'mid' => $mid,
       'uid' => $this->currentUser()->id(),
       'nickname' => $form_state->getValue('nickname'),
+      'mvid1' => $moves[0]->mvid,
+      'mvid2' => $moves[1]->mvid,
     ];
     $this->database->insert('drupal_monsters_user_mon')->fields($values)->execute();
   }
