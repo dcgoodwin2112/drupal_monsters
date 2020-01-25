@@ -11,13 +11,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class DrupalMonstersGameController extends ControllerBase {
 
   /**
-   * Drupal\drupal_monsters\DrupalMonstersGameDataInterface definition.
-   *
-   * @var \Drupal\drupal_monsters\DrupalMonstersGameDataInterface
-   */
-  protected $gameData;
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
