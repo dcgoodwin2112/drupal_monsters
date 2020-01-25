@@ -179,6 +179,7 @@ class ChooseMonForm extends FormBase {
     $query = $this->database->select('drupal_monsters_move', 'dmm')
       ->fields('dmm', ['mvid', 'tid'])
       ->condition('tid', [1, $type_id], 'IN')
+      ->orderRandom()
       ->execute();
     return $query->fetchAll();
 
