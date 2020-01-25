@@ -96,6 +96,12 @@ function drupal_monsters_install() {
       'power' => 3,
       'damage_mult' => 1.5,
     ],
+    [
+      'name' => 'Body slam',
+      'tid' => 5,
+      'power' => 3,
+      'damage_mult' => 1,
+    ],
   ];
 
   foreach ($moves as $move) {
