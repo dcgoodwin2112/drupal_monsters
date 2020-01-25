@@ -1,0 +1,4 @@
+services:
+  logger.channel.drupal_monsters:
+    parent: logger.channel_base
+    arguments: ['drupal_monsters']

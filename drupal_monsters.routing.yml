@@ -1,0 +1,15 @@
+
+drupal_monsters.drupal_monsters_game_controller_index:
+  path: '/drupal_monsters/index'
+  defaults:
+    _controller: '\Drupal\drupal_monsters\Controller\DrupalMonstersGameController::index'
+    _title: 'Drupal Monsters'
+  requirements:
+    _permission: 'access content'
+drupal_monsters.choose_mon_form:
+  path: '/drupal_monsters/form/choose-mon'
+  defaults:
+    _form: '\Drupal\drupal_monsters\Form\ChooseMonForm'
+    _title: 'Choose a Drupalmon'
+  requirements:
+    _access: 'TRUE'
