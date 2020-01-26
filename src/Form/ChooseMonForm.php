@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 
 /**
@@ -28,6 +29,13 @@ class ChooseMonForm extends FormBase {
   protected $currentUser;
 
   /**
+   * Drupal\Core\Messenger\MessengerInterface definition.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
    * Object Array definition.
    *
    * @var object[]
@@ -41,10 +49,17 @@ class ChooseMonForm extends FormBase {
    *   The database connection service.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The current_user service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The Drupal messenger service.
    */
-  public function __construct(Connection $database, AccountProxyInterface $current_user) {
+  public function __construct(
+    Connection $database,
+    AccountProxyInterface $current_user,
+    MessengerInterface $messenger
+  ) {
     $this->database = $database;
     $this->currentUser = $current_user;
+    $this->messenger = $messenger;
     $this->monsters = $this->getMonsters();
   }
 
@@ -54,7 +69,8 @@ class ChooseMonForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('database'),
-      $container->get('current_user')
+      $container->get('current_user'),
+      $container->get('messenger')
     );
   }
 
@@ -213,6 +229,7 @@ class ChooseMonForm extends FormBase {
       'mvid2' => $moves[1]->mvid,
     ];
     $this->database->insert('drupal_monsters_user_mon')->fields($values)->execute();
+    $this->messenger->addStatus($this->t('Congrats! You created a new Drupalmon!'));
   }
 
 }
