@@ -31,5 +31,20 @@ function drupal_monsters_theme() {
     'drupal_monsters' => [
       'render element' => 'children',
     ],
+    'user_monster' => [
+      'render element' => 'children',
+      'variables' => [
+        'name' => '',
+        'nickname' => '',
+        'type' => '',
+        'attack' => 0,
+        'defense' => 0,
+        'stamina' => 0,
+        'level' => 0,
+        'experience' => 0,
+        'mv1' => [],
+        'mv2' => [],
+      ],
+    ],
   ];
 }
