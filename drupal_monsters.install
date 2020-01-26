@@ -85,20 +85,20 @@ function drupal_monsters_install() {
       'damage_mult' => 1.25,
     ],
     [
-      'name' => 'Water pistol',
-      'tid' => 3,
-      'power' => 2,
-      'damage_mult' => 1.33,
-    ],
-    [
       'name' => 'Spark shot',
-      'tid' => 4,
+      'tid' => 3,
       'power' => 3,
       'damage_mult' => 1.5,
     ],
     [
+      'name' => 'Water pistol',
+      'tid' => 4,
+      'power' => 2,
+      'damage_mult' => 1.33,
+    ],
+    [
       'name' => 'Body slam',
-      'tid' => 5,
+      'tid' => 1,
       'power' => 3,
       'damage_mult' => 1,
     ],
