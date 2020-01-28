@@ -1,16 +1,26 @@
-{{ name }}<br>
-{{ nickname }}<br>
-{{ type }}<br>
-{{ attack }}<br>
-{{ defense }}<br>
-{{ stamina }}<br>
-{{ level }}<br>
-{{ experience }}<br>
-{{ mv1.name }}<br>
-{{ mv1.type }}<br>
-{{ mv1.power }}<br>
-{{ mv1.damage_mult }}<br>
-{{ mv2.name }}<br>
-{{ mv2.type }}<br>
-{{ mv2.power }}<br>
-{{ mv2.damage_mult }}<br>
+<div class="monster-container">
+  <p class="monster-name">
+  {% if nickname is empty %}
+    Name: {{ name }}
+  {% else %}
+    Name: {{ nickname }} ({{ name }})
+  {% endif %}
+  </p>
+  <p class="mosnter-lvl-exp-type">
+    LVL: {{ level }} EXP: {{ experience }} TYPE: {{ type|capitalize }}
+  </p>
+  <p class="monster-stats">
+    ATK: {{ attack }} DEF: {{ defense }} STA: {{ stamina }}
+  <p>
+  <div class="monster-moves-container">
+    <h2>Attacks</h2>
+    <p class="monster-move">
+      MV1: {{ mv1.name }} PWR: {{ mv1.power }}<br>
+      TYPE: {{ mv1.type }} MULT: {{ mv1.damage_mult }}
+    </p>
+    <p class="monster-move">
+      MV2: {{ mv2.name }} PWR: {{ mv2.power }}<br>
+      TYPE: {{ mv2.type }} MULT: {{ mv2.damage_mult }}
+    </p>
+  </div>
+</div>
