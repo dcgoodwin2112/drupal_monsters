@@ -9,3 +9,30 @@ p.name {
 .monster-container p:first-child {
   font-size: 1.1em;
 }
+
+.type-container {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+}
+
+.type-container img {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  max-width: inherit;
+}
+
+.type-container .grass-icon {
+  right: 32px;
+}
+
+.type-container .fire-icon {
+  bottom: 32px;
+}
+
+.type-container .water-icon {
+  right: 32px;
+  bottom: 32px;
+}
+

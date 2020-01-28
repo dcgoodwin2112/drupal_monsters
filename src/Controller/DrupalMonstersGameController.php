@@ -25,12 +25,20 @@ class DrupalMonstersGameController extends ControllerBase {
   protected $currentUser;
 
   /**
+   * Drupal\Core\Extension\ModuleHandlerInterface definition.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
     $instance->database = $container->get('database');
     $instance->currentUser = $container->get('current_user');
+    $instance->moduleHandler = $container->get('module_handler');
     return $instance;
   }
 
@@ -55,6 +63,8 @@ class DrupalMonstersGameController extends ControllerBase {
       '#name' => $user_mon->b_name,
       '#nickname' => $user_mon->nickname,
       '#type' => $types[$user_mon->tid],
+      '#tid' => $user_mon->tid,
+      '#t_sprite' => $this->moduleHandler->getModule('drupal_monsters')->getPath(),
       '#attack' => $user_mon->attack,
       '#defense' => $user_mon->defense,
       '#stamina' => $user_mon->stamina,

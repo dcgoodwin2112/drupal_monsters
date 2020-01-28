@@ -8,6 +8,12 @@
   {% endif %}
   </p>
   <p class="lvl-exp-type">
+    <div class="type-container">
+      <img
+        src="/{{ t_sprite }}/images/elements/elemental-sprites.png"
+        class="{{ type }}-icon"
+        alt="{{ type }} element icon">
+    </div>
     LVL: {{ level }} EXP: {{ experience }} TYPE: {{ type|capitalize }}
   </p>
   <p class="stats">

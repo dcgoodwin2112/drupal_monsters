@@ -37,6 +37,8 @@ function drupal_monsters_theme() {
         'name' => '',
         'nickname' => '',
         'type' => '',
+        'tid' => 0,
+        't_sprite' => '',
         'attack' => 0,
         'defense' => 0,
         'stamina' => 0,
