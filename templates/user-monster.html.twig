@@ -1,21 +1,22 @@
+{{ attach_library('drupal_monsters/monster') }}
 <div class="monster-container">
-  <p class="monster-name">
+  <p class="name">
   {% if nickname is empty %}
-    Name: {{ name }}
+    {{ name }}
   {% else %}
-    Name: {{ nickname }} ({{ name }})
+    {{ nickname }} ({{ name }})
   {% endif %}
   </p>
-  <p class="mosnter-lvl-exp-type">
+  <p class="lvl-exp-type">
     LVL: {{ level }} EXP: {{ experience }} TYPE: {{ type|capitalize }}
   </p>
-  <p class="monster-stats">
+  <p class="stats">
     ATK: {{ attack }} DEF: {{ defense }} STA: {{ stamina }}
   <p>
-  <div class="monster-moves-container">
+  <div class="moves-container">
     <h2>Attacks</h2>
     {% for move in moves %}
-      <p class="monster-move">
+      <p class="move">
         {{ move.name }}
         PWR: {{ move.power }}<br>
         TYPE: {{ move.type }}

@@ -1,0 +1,11 @@
+p.name {
+  font-weight: bold;
+}
+
+.monster-container p {
+  margin: 0 .25em;
+}
+
+.monster-container p:first-child {
+  font-size: 1.1em;
+}

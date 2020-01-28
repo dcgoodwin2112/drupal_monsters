@@ -1,0 +1,5 @@
+monster:
+  version: VERSION
+  css:
+    component:
+      css/monster.css: {}
