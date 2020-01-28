@@ -14,13 +14,13 @@
   <p>
   <div class="monster-moves-container">
     <h2>Attacks</h2>
-    <p class="monster-move">
-      MV1: {{ mv1.name }} PWR: {{ mv1.power }}<br>
-      TYPE: {{ mv1.type }} MULT: {{ mv1.damage_mult }}
-    </p>
-    <p class="monster-move">
-      MV2: {{ mv2.name }} PWR: {{ mv2.power }}<br>
-      TYPE: {{ mv2.type }} MULT: {{ mv2.damage_mult }}
-    </p>
+    {% for move in moves %}
+      <p class="monster-move">
+        {{ move.name }}
+        PWR: {{ move.power }}<br>
+        TYPE: {{ move.type }}
+        MULT:{{ move.damage_mult }}
+      </p>
+    {% endfor %}
   </div>
 </div>

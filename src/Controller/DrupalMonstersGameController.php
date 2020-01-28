@@ -60,17 +60,19 @@ class DrupalMonstersGameController extends ControllerBase {
       '#stamina' => $user_mon->stamina,
       '#level' => $user_mon->level,
       '#experience' => $user_mon->experience,
-      '#mv1' => [
-        'name' => $user_mon->mv1_name,
-        'type' => $types[$user_mon->mv1_tid],
-        'power' => $user_mon->mv1_power,
-        'damage_mult' => $user_mon->mv1_mult,
-      ],
-      '#mv2' => [
-        'name' => $user_mon->mv2_name,
-        'type' => $types[$user_mon->mv2_tid],
-        'power' => $user_mon->mv2_power,
-        'damage_mult' => $user_mon->mv2_mult,
+      '#moves' => [
+        [
+          'name' => $user_mon->mv1_name,
+          'type' => $types[$user_mon->mv1_tid],
+          'power' => $user_mon->mv1_power,
+          'damage_mult' => $user_mon->mv1_mult,
+        ],
+        [
+          'name' => $user_mon->mv2_name,
+          'type' => $types[$user_mon->mv2_tid],
+          'power' => $user_mon->mv2_power,
+          'damage_mult' => $user_mon->mv2_mult,
+        ],
       ],
       '#cache' => [
         'max-age' => 0,
