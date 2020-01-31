@@ -1,5 +1,12 @@
 {{ attach_library('drupal_monsters/monster') }}
 <div class="monster-container">
+  <div class="monster-sprite-container">
+    <img
+      src="/{{ t_sprite }}/images/dropsprite-left-840.png"
+      class="monster-sprite-{{ mid }}"
+      alt="{{ name }}"
+    >
+  </div>
   <p class="name">
   {% if nickname is empty %}
     {{ name }}
@@ -7,26 +14,60 @@
     {{ nickname }} ({{ name }})
   {% endif %}
   </p>
-  <p class="lvl-exp-type">
-    <div class="type-container">
-      <img
-        src="/{{ t_sprite }}/images/elements/elemental-sprites.png"
-        class="{{ type }}-icon"
-        alt="{{ type }} element icon">
+  <div class="stats-flex-container">
+    <div class="lvl-exp-type">
+      LVL:
+      <span class="stat-value">
+        {{ level }}
+      </span><br>
+      EXP:
+      <span class="stat-value">
+        {{ experience }}
+      </span><br>
+      W/L:
+      <span class="stat-value">
+        0/0
+      </span><br>
     </div>
-    LVL: {{ level }} EXP: {{ experience }} TYPE: {{ type|capitalize }}
-  </p>
-  <p class="stats">
-    ATK: {{ attack }} DEF: {{ defense }} STA: {{ stamina }}
-  <p>
+    <div class="stats">
+    ATK:
+    <span class="stat-value">
+      {{ attack }}
+    </span><br>
+    DEF:
+    <span class="stat-value">
+      {{ defense }}
+    </span><br>
+    STA:
+    <span class="stat-value">
+      {{ stamina }}
+    </span>
+    </div>{# /lvl-exp-type #}
+    <div class="type-container">
+      <span class="type-label type-label-{{ type }}">
+        {{ type|capitalize }}
+      </span>
+      <div class="type-image">
+        <img src="/{{ t_sprite }}/images/elements/elemental-sprites.png" class="{{ type }}-icon" alt="{{ type }} element icon">
+      </div>
+    </div>{# /type-container #}
+  </div> {# /stats-flex-container #}
   <div class="moves-container">
     <h2>Attacks</h2>
     {% for move in moves %}
       <p class="move">
-        {{ move.name }}
-        PWR: {{ move.power }}<br>
-        TYPE: {{ move.type }}
-        MULT:{{ move.damage_mult }}
+        <span class="move-name">
+          {{ move.name }}
+        </span>
+        ({{ move.type|capitalize }})<br>
+        PWR:
+        <span class="move-value">
+          {{ move.power }}
+        </span>
+        MULT:
+        <span class="move-value">
+          {{ move.damage_mult ~ '%' }}
+        </span>
       </p>
     {% endfor %}
   </div>

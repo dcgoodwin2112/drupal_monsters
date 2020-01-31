@@ -60,6 +60,7 @@ class DrupalMonstersGameController extends ControllerBase {
     $types = $this->getTypes();
     return [
       '#theme' => 'user_monster',
+      '#mid' => $user_mon->mid,
       '#name' => $user_mon->b_name,
       '#nickname' => $user_mon->nickname,
       '#type' => $types[$user_mon->tid],

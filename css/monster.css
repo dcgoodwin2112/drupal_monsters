@@ -1,38 +1,97 @@
-p.name {
+p.name,
+.type-label {
   font-weight: bold;
 }
 
 .monster-container p {
-  margin: 0 .25em;
+  margin: 0.5em 0;
 }
 
-.monster-container p:first-child {
-  font-size: 1.1em;
+.monster-container p.name{
+  font-size: 1.6em;
 }
 
-.type-container {
-  width: 32px;
-  height: 32px;
+.move-name {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.monster-container .stat-value,
+.monster-container .move-value {
+  font-weight: bold;
+  font-size: 1.2em;;
+}
+
+.stats-flex-container {
+  display: flex;
+}
+
+.stats-flex-container div {
+  min-width: 100px;
+  align-self: center;
+}
+
+/* Type sprite */
+
+.type-image {
+  --type-width: 32px;
+  --type-height: 32px;
+}
+
+.type-image {
+  width: var(--type-width);
+  height: var(--type-height);
   overflow: hidden;
 }
 
-.type-container img {
-  width: 64px;
-  height: 64px;
+.type-image img {
+  width: calc(var(--type-width)*2);
+  height: calc(var(--type-height)*2);
   position: relative;
   max-width: inherit;
 }
 
-.type-container .grass-icon {
-  right: 32px;
+.type-image .grass-icon {
+  right: var(--type-width);
 }
 
-.type-container .fire-icon {
-  bottom: 32px;
+.type-image .fire-icon {
+  bottom: var(--type-height);
 }
 
-.type-container .water-icon {
-  right: 32px;
-  bottom: 32px;
+.type-image .water-icon {
+  right: var(--type-width);
+  bottom: var(--type-height);
+}
+
+/* Monster sprite */
+
+.monster-sprite-container {
+  --monster-width: 210px;
+  --monster-height: 240px;
+  width: var(--monster-width);
+  height: var(--monster-height);
+  overflow: hidden;
+}
+
+.monster-sprite-container img {
+  height: var(--monster-height);
+  position: relative;
+  max-width: inherit;
+}
+
+/* Treemon */
+.monster-sprite-container .monster-sprite-2 {
+  right: var(--monster-width);
+}
+
+/* Firemon */
+.monster-sprite-container .monster-sprite-3 {
+  right: calc(var(--monster-width)*2);
+}
+
+/* Dropmon */
+.monster-sprite-container .monster-sprite-4 {
+  right: calc(var(--monster-width)*3);
 }
 

@@ -34,6 +34,7 @@ function drupal_monsters_theme() {
     'user_monster' => [
       'render element' => 'children',
       'variables' => [
+        'mid' => 0,
         'name' => '',
         'nickname' => '',
         'type' => '',
